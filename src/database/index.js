@@ -19,18 +19,15 @@ class Database {
     this.connection = new Sequelize(databaseConfig);
 
     models
-      .map((m) => m.init(this.connection))
-      .map((m) => m.associate && m.associate(this.connection.models));
+      .map(m => m.init(this.connection))
+      .map(m => m.associate && m.associate(this.connection.models));
   }
 
   mongo() {
-    this.mongoConnection = mongoose.connect(
-      'mongodb://localhost:27017/gobarber',
-      {
-        useNewUrlParser: true,
-        useFindAndModify: true,
-      },
-    );
+    this.mongoConnection = mongoose.connect(process.env.MONGO_URL, {
+      useNewUrlParser: true,
+      useFindAndModify: true,
+    });
   }
 }
 
